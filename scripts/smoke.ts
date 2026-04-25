@@ -3,7 +3,7 @@ import { McpRegistry } from "../src/mcpClient.js";
 
 const config = await loadConfig(process.argv[2] ?? "./servers.example.yaml");
 const registry = new McpRegistry(config.servers);
-const smokeTool = process.env.MCP_BRIDGE_SMOKE_TOOL ?? "echo.echo";
+const smokeTool = process.env.MCP_BRIDGE_SMOKE_TOOL ?? "echo_echo";
 
 try {
   await registry.connectAll();

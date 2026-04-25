@@ -5,7 +5,7 @@
 OpenClaw 2026.3.23 has native outbound MCP server definitions, so the primary integration path is the stdio MCP server entrypoint:
 
 - `npm run mcp` exposes one aggregated MCP server for OpenClaw.
-- Tool names are normalized as `serverName.toolName`.
+- Tool names are normalized as `serverName_toolName` because OpenClaw accepts only letters, numbers, underscores, and dashes in MCP tool names.
 - The HTTP server remains useful for diagnostics and fallback integrations.
 
 OpenClaw's `mcp set/list/show/unset` commands manage saved config only. They do not start the MCP server or prove it is reachable at registration time.
@@ -14,7 +14,7 @@ Diagnostic HTTP endpoints:
 
 - `GET /healthz` checks that the bridge is alive.
 - `GET /servers` returns configured MCP server status.
-- `GET /tools` returns normalized tools as `serverName.toolName`.
+- `GET /tools` returns normalized tools as `serverName_toolName`.
 - `POST /tools/call` calls a normalized tool with JSON arguments.
 
 ## Development
@@ -72,13 +72,13 @@ curl -s http://127.0.0.1:8787/tools
 
 curl -s http://127.0.0.1:8787/tools/call \
   -H 'content-type: application/json' \
-  -d '{"tool":"local_files.list_directory","arguments":{"path":"/srv/automation"}}'
+  -d '{"tool":"local_files_list_directory","arguments":{"path":"/srv/automation"}}'
 ```
 
 ## OpenClaw Integration Phases
 
 1. Register this bridge with `openclaw mcp set bridge ...`.
 2. Confirm the OpenClaw runtime profile that should consume configured MCP servers is `coding` or `messaging`, not `minimal`.
-3. Ask OpenClaw to use the test `echo.echo` tool through that runtime.
+3. Ask OpenClaw to use the test `echo_echo` tool through that runtime.
 4. If the runtime cannot consume the saved MCP registry yet, use the HTTP fallback path with a custom `mcp_call` tool.
 5. Start with safe read-only tools, then add write/action tools behind explicit confirmation.

@@ -15,7 +15,7 @@ async function main(): Promise<void> {
       capabilities: {
         tools: {},
       },
-      instructions: "Aggregates configured MCP servers and exposes their tools as serverName.toolName.",
+      instructions: "Aggregates configured MCP servers and exposes their tools as serverName_toolName.",
     },
   );
 

@@ -121,7 +121,7 @@ function createTransport(config: ServerConfig): StdioClientTransport | Streamabl
 }
 
 function normalizeToolName(serverName: string, toolName: string): string {
-  return `${serverName}.${toolName}`.replaceAll(/[^a-zA-Z0-9_.-]/g, "_");
+  return `${serverName}_${toolName}`.replaceAll(/[^a-zA-Z0-9_-]/g, "_");
 }
 
 function mergeEnv(extraEnv: Record<string, string> = {}): Record<string, string> {

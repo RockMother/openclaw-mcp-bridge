@@ -2,7 +2,7 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
 const configPath = process.env.MCP_BRIDGE_CONFIG ?? "./servers.example.yaml";
-const smokeTool = process.env.MCP_BRIDGE_SMOKE_TOOL ?? "echo.echo";
+const smokeTool = process.env.MCP_BRIDGE_SMOKE_TOOL ?? "echo_echo";
 
 const transport = new StdioClientTransport({
   command: "node",
