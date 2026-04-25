@@ -15,11 +15,12 @@ const client = new Client({ name: "openclaw-mcp-bridge-smoke", version: "0.1.0" 
 try {
   await client.connect(transport);
   const tools = await client.listTools();
+  const adminResult = await client.callTool({ name: "bridge_config_list", arguments: {} });
   const hasSmokeTool = tools.tools.some((tool) => tool.name === smokeTool);
   const callResult = hasSmokeTool
     ? await client.callTool({ name: smokeTool, arguments: { message: "native-mcp-ok" } })
     : { skipped: true, reason: `smoke tool not found: ${smokeTool}` };
-  console.log(JSON.stringify({ tools: tools.tools, callResult }, null, 2));
+  console.log(JSON.stringify({ tools: tools.tools, adminResult, callResult }, null, 2));
 } finally {
   await client.close();
 }

@@ -25,6 +25,7 @@ cp servers.example.yaml servers.yaml
 npm run build
 npm run smoke
 npm run smoke:mcp
+npm run smoke:admin
 MCP_BRIDGE_CONFIG=./servers.yaml npm run smoke:mcp
 MCP_BRIDGE_CONFIG=./servers.yaml npm run dev
 ```
@@ -93,6 +94,28 @@ Ask OpenClaw to verify the filesystem tool path:
 ```text
 Какие MCP tools тебе доступны с префиксом files_? Если видишь их, вызови files_list_directory для /home/ks/automation.
 ```
+
+## Managing Servers From OpenClaw
+
+The bridge exposes trusted admin tools that can edit `servers.yaml` through OpenClaw:
+
+- `bridge_config_list` lists configured backend MCP servers and current status.
+- `bridge_config_get` shows one server definition.
+- `bridge_config_set` adds or replaces one server definition.
+- `bridge_config_remove` removes one server definition.
+- `bridge_config_reload` rereads `servers.yaml` and rebuilds the live registry.
+
+`bridge_config_set`, `bridge_config_remove`, and `bridge_config_reload` perform hot reload and send an MCP `tools/list_changed` notification. If a runtime caches tools anyway, start a new OpenClaw session after changing config.
+
+Example prompt for OpenClaw:
+
+```text
+Вызови bridge_config_set для server files2 с config:
+{"transport":"stdio","command":"npx","args":["-y","@modelcontextprotocol/server-filesystem","/home/ks/automation"],"timeoutMs":10000}
+Затем вызови bridge_config_reload и покажи tools с префиксом files2_.
+```
+
+This is a trusted-admin feature: adding stdio servers lets OpenClaw configure commands that the bridge will launch on the host.
 
 ## HTTP Tool Call
 

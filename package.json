@@ -11,6 +11,7 @@
     "mcp:dev": "tsx src/mcpServer.ts",
     "start": "node dist/index.js",
     "smoke": "tsx scripts/smoke.ts",
+    "smoke:admin": "tsx scripts/smokeAdmin.ts",
     "smoke:mcp": "tsx scripts/smokeMcp.ts"
   },
   "engines": {
