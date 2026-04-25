@@ -1,12 +1,39 @@
 {
   "name": "openclaw-mcp-bridge",
   "version": "0.1.0",
-  "description": "Bridge service that aggregates MCP servers for OpenClaw.",
+  "description": "MCP bridge for OpenClaw that aggregates stdio and HTTP MCP servers with hot-reloadable configuration.",
   "type": "module",
   "private": true,
+  "keywords": [
+    "openclaw",
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "mcp-client",
+    "mcp-bridge",
+    "ai-agent",
+    "agent-tools",
+    "stdio",
+    "streamable-http",
+    "typescript"
+  ],
+  "homepage": "https://github.com/RockMother/openclaw-mcp-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/RockMother/openclaw-mcp-bridge/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RockMother/openclaw-mcp-bridge.git"
+  },
   "bin": {
     "openclaw-mcp-bridge": "dist/src/cli.js"
   },
+  "files": [
+    "dist",
+    "skills",
+    "servers.example.yaml",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/index.ts",
