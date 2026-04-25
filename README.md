@@ -25,6 +25,7 @@ cp servers.example.yaml servers.yaml
 npm run build
 npm run smoke
 npm run smoke:mcp
+MCP_BRIDGE_CONFIG=./servers.yaml npm run smoke:mcp
 MCP_BRIDGE_CONFIG=./servers.yaml npm run dev
 ```
 

@@ -1,10 +1,13 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
+const configPath = process.env.MCP_BRIDGE_CONFIG ?? "./servers.example.yaml";
+const smokeTool = process.env.MCP_BRIDGE_SMOKE_TOOL ?? "echo.echo";
+
 const transport = new StdioClientTransport({
   command: "node",
   args: ["./dist/src/mcpServer.js"],
-  env: mergeEnv({ MCP_BRIDGE_CONFIG: "./servers.example.yaml" }),
+  env: mergeEnv({ MCP_BRIDGE_CONFIG: configPath }),
 });
 
 const client = new Client({ name: "openclaw-mcp-bridge-smoke", version: "0.1.0" });
@@ -12,7 +15,10 @@ const client = new Client({ name: "openclaw-mcp-bridge-smoke", version: "0.1.0" 
 try {
   await client.connect(transport);
   const tools = await client.listTools();
-  const callResult = await client.callTool({ name: "echo.echo", arguments: { message: "native-mcp-ok" } });
+  const hasSmokeTool = tools.tools.some((tool) => tool.name === smokeTool);
+  const callResult = hasSmokeTool
+    ? await client.callTool({ name: smokeTool, arguments: { message: "native-mcp-ok" } })
+    : { skipped: true, reason: `smoke tool not found: ${smokeTool}` };
   console.log(JSON.stringify({ tools: tools.tools, callResult }, null, 2));
 } finally {
   await client.close();
