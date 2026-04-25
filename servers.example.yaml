@@ -1,0 +1,14 @@
+servers:
+  echo:
+    transport: stdio
+    command: node
+    args: ["./dist/src/dev/echoMcpServer.js"]
+    timeoutMs: 10000
+
+  remote_example:
+    transport: streamable_http
+    url: https://example.com/mcp
+    enabled: false
+    auth:
+      type: bearer_env
+      token_env: EXAMPLE_MCP_TOKEN

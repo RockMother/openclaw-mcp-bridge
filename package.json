@@ -1,0 +1,29 @@
+{
+  "name": "openclaw-mcp-bridge",
+  "version": "0.1.0",
+  "description": "Bridge service that aggregates MCP servers for OpenClaw.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "mcp": "node dist/src/mcpServer.js",
+    "mcp:dev": "tsx src/mcpServer.ts",
+    "start": "node dist/index.js",
+    "smoke": "tsx scripts/smoke.ts",
+    "smoke:mcp": "tsx scripts/smokeMcp.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "yaml": "^2.8.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}
