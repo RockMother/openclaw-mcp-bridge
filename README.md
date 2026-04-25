@@ -150,6 +150,24 @@ Example prompt for OpenClaw:
 
 This is a trusted-admin feature: adding stdio servers lets OpenClaw configure commands that the bridge will launch on the host.
 
+## OpenClaw Skill
+
+This repo includes an OpenClaw skill that teaches the agent how to operate the bridge: inspect status, add/remove backend MCP servers, reload the registry, use normalized tool names, and apply basic safety checks for `stdio` servers.
+
+Install it locally:
+
+```bash
+mkdir -p ~/.openclaw/skills
+cp -R skills/openclaw-mcp-bridge ~/.openclaw/skills/openclaw-mcp-bridge
+openclaw skills list
+```
+
+After installing, ask OpenClaw:
+
+```text
+Используй skill openclaw-mcp-bridge и покажи статус bridge_config_list.
+```
+
 ## HTTP Tool Call
 
 ```bash
