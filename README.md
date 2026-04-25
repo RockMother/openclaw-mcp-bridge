@@ -65,6 +65,35 @@ This stores the definition under OpenClaw config. A runtime that consumes OpenCl
 
 Do not confuse this with `openclaw mcp serve`: that command is the opposite direction, where OpenClaw itself acts as an MCP server for external clients.
 
+## Verified Server Setup
+
+This setup was verified on the OpenClaw server with user `ks`:
+
+```bash
+cd /home/ks/openclaw-mcp-bridge
+npm install
+npm run build
+mkdir -p /home/ks/automation
+cat > /home/ks/openclaw-mcp-bridge/servers.yaml <<'EOF'
+servers:
+  files:
+    transport: stdio
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-filesystem", "/home/ks/automation"]
+    timeoutMs: 10000
+EOF
+
+openclaw mcp set bridge '{"command":"node","args":["/home/ks/openclaw-mcp-bridge/dist/src/mcpServer.js"],"env":{"MCP_BRIDGE_CONFIG":"/home/ks/openclaw-mcp-bridge/servers.yaml"}}'
+openclaw mcp show bridge
+MCP_BRIDGE_CONFIG=/home/ks/openclaw-mcp-bridge/servers.yaml npm run smoke:mcp
+```
+
+Ask OpenClaw to verify the filesystem tool path:
+
+```text
+Какие MCP tools тебе доступны с префиксом files_? Если видишь их, вызови files_list_directory для /home/ks/automation.
+```
+
 ## HTTP Tool Call
 
 ```bash
