@@ -4,11 +4,15 @@
   "description": "Bridge service that aggregates MCP servers for OpenClaw.",
   "type": "module",
   "private": true,
+  "bin": {
+    "openclaw-mcp-bridge": "dist/src/cli.js"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/index.ts",
     "mcp": "node dist/src/mcpServer.js",
     "mcp:dev": "tsx src/mcpServer.ts",
+    "setup": "tsx src/cli.ts setup",
     "start": "node dist/index.js",
     "smoke": "tsx scripts/smoke.ts",
     "smoke:admin": "tsx scripts/smokeAdmin.ts",

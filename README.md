@@ -17,6 +17,39 @@ Diagnostic HTTP endpoints:
 - `GET /tools` returns normalized tools as `serverName_toolName`.
 - `POST /tools/call` calls a normalized tool with JSON arguments.
 
+## Quick Setup
+
+For the common single-user server setup, clone the repo and run:
+
+```bash
+cd /home/ks/openclaw-mcp-bridge
+npm run setup
+```
+
+The setup command:
+
+- installs dependencies and builds the bridge;
+- creates `servers.yaml`;
+- creates `~/automation`;
+- configures the default filesystem MCP server as `files`;
+- registers the bridge in OpenClaw with `openclaw mcp set bridge ...`;
+- runs `npm run smoke:mcp`.
+
+Useful options:
+
+```bash
+npm run setup -- --automation-dir /home/ks/automation
+npm run setup -- --config /home/ks/openclaw-mcp-bridge/servers.yaml
+npm run setup -- --server-name bridge
+npm run setup -- --skip-smoke
+```
+
+After setup, ask OpenClaw:
+
+```text
+Какие MCP tools тебе доступны с префиксом files_? Если видишь их, вызови files_list_directory для /home/ks/automation.
+```
+
 ## Development
 
 ```bash
@@ -68,7 +101,7 @@ Do not confuse this with `openclaw mcp serve`: that command is the opposite dire
 
 ## Verified Server Setup
 
-This setup was verified on the OpenClaw server with user `ks`:
+This manual setup was verified on the OpenClaw server with user `ks`. Prefer `npm run setup` for new installs; keep this as the explicit version of what setup automates:
 
 ```bash
 cd /home/ks/openclaw-mcp-bridge
